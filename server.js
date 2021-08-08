@@ -1,27 +1,27 @@
 const dotenv = require('dotenv');
 const express = require("express");
 const server = express();
+const cors = require("cors");
+//ROUTES
+const adminRouter = require("./api/admin/admin.router")
+const departmentRouter = require("./api/department/department.router")
 
-dotenv.config({path:'./.env'});
+dotenv.config({ path: './.env' });
 require('./db/conn');
 
 
 server.use(express.json());
 
-server.use(require("./routes/adminRoutes"))
+// server.use(require("./routes/adminRoutes"))
+server.use(cors({ allowedHeaders: "*", origin: "*" }));
 
-const PORT = process.env.PORT||5000;
+
+//ROUTES
+server.use("/admin", adminRouter)
+server.use("/department", departmentRouter)
 
 
-server.get('/signin', (req,res) =>{
-    res.send("Hello Login World from the server")
-
-})
-server.get('/signup', (req,res) =>{
-    res.send("Hello Registration World from the server")
-
-})
-
-server.listen(PORT,()=>{
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
     console.log(`The app is running at port ${PORT}`)
 })
