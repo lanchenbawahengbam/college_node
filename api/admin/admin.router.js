@@ -1,5 +1,5 @@
 const express = require("express")
-const { adminLoginController, adminRegisterController } = require("./admin.controller")
+const { adminLoginController, adminRegisterController,adminUpdateController,adminDeleteController}= require("./admin.controller")
 const router = express.Router()
 
 
@@ -8,6 +8,15 @@ const router = express.Router()
 router.post("/login", adminLoginController)
 
 //ADMIN ADD
-router.post("/register", adminRegisterController)
+router.post("/register", adminRegisterController)  
+
+// ADMIN UPDATE 
+router.patch("/update/:id", adminUpdateController)  
+
+// ADMIN DELETE
+router.delete("/delete/:id", adminDeleteController)  
+
+
+
 
 module.exports = router;

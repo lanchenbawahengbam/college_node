@@ -1,21 +1,22 @@
-const { adminRegistrationService, adminLoginService } = require("./admin.service");
-
+const { adminRegistrationService, adminLoginService , adminUpdateService,adminDeleteService} = require("./admin.service");
+ 
 
 
 function adminLoginController(req, res) {
 
-    let body
-    body.username = req.body.username;
-    body.password = req.body.password;
+    console.log(req.body)
+    // let body
+    // body.email = req.body.email;
+    // body.password = req.body.password;
 
-    adminLoginService(body, (results, status) => {
+    adminLoginService(req, (results, status) => {
         return res.status(status).json(results);
     });
 
 }
 
 function adminRegisterController(req, res) {
-    let body = req.body;
+     let body = req.body; 
 
     adminRegistrationService(body, (results, status) => {
 
@@ -24,7 +25,28 @@ function adminRegisterController(req, res) {
     })
 }
 
+function adminUpdateController(req, res) {
+    //  let body = req.body; 
+
+    adminUpdateService(req, (results, status) => {
+
+        return res.status(status).json(results);
+
+    })
+}
+function adminDeleteController(req, res) {
+    //  let body = req.body; 
+
+    adminDeleteService(req, (results, status) => {
+
+        return res.status(status).json(results);
+
+    })
+}
+
 module.exports = {
     adminLoginController,
-    adminRegisterController
+    adminRegisterController,
+    adminUpdateController,
+    adminDeleteController
 }

@@ -1,22 +1,35 @@
 
 const Admin = require('../../model/adminSchema');
 const STATUS = require("../../helper/status");
-const validateAdminRegisterInput = require('../../validation/adminRegistration');
+const validateAdminLoginInput = require("../../validation/adminlogin");
+const { INTERNAL_SERVER } = require('../../helper/status');
 
 //ADMIN LOGIN
-function adminLoginService(req, callback) {
+async function adminLoginService(req, callback) {
+    // const { errors, isValid } = validateAdminLoginInput(req.body);
+    // if (!isValid) {
+    //     callback({
+    //         errors
+    //     }, STATUS.BAD_REQ) 
+    // }
+    const { email, password } = req.body;
 
-
+    const admin = await Admin.findOne({ email,password })
+    if (!admin) {
+        callback({message:"Invalid Cridentials"},STATUS.BAD_REQ)
+    }else{
+        callback({message:"User Login Successfull"},STATUS.SUCCESS)
+    }
 }
 
-
+// ADMIN REGISTRATION 
 async function adminRegistrationService(req, callback) {
-    const { errors, isValid } = validateAdminRegisterInput(req);
-    if (!isValid) {
-        callback({
-            errors
-        }, STATUS.BAD_REQ)
-    }
+    // const { errors, isValid } = validateAdminRegisterInput(req);
+    // if (!isValid) {
+    //     callback({
+    //         errors
+    //     }, STATUS.BAD_REQ)
+    // }
     const { name, email,
         dob, department, contactNumber, password } = req;
 
@@ -81,7 +94,6 @@ async function adminRegistrationService(req, callback) {
         dob,
     })
 
-
     newAdmin.save()
         .then((result) => {
             console.log("CREATED : ", result)
@@ -100,15 +112,38 @@ async function adminRegistrationService(req, callback) {
             }, STATUS.INTERNAL_SERVER)
         })
 
-
-
-
-
     // res.status(200).json({ result: newAdmin })
+}
+
+// ADMIN UPDATE 
+async function adminUpdateService(req,callback){
+    const _id = req.params.id;
+        const adminUpdate = await Admin.findByIdAndUpdate(_id,req.body,{
+            new:true   
+        });
+    if(!adminUpdate){
+        callback({message:"Data update error"},INTERNAL_SERVER )
+    }else{
+        console.log(adminUpdate)
+        callback(
+            {message:"Data is updated" }, STATUS.SUCCESS)            
+    }
+}
+// ADMIN DELETE
+async function adminDeleteService(req,callback){
+    const adminDelete = await Admin.findByIdAndDelete(req.params.id);
+    if(!adminDelete){
+        callback({message:"Error in data deletion"},INTERNAL_SERVER )
+    }else{
+        console.log(adminDelete)
+        callback({message:"Data is deleted" }, STATUS.SUCCESS)            
+    }
 }
 
 
 module.exports = {
     adminLoginService,
-    adminRegistrationService
+    adminRegistrationService,
+    adminUpdateService,
+    adminDeleteService
 }

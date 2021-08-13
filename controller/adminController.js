@@ -82,6 +82,5 @@ module.exports = {
             res.status(400).json({ message: `error in adding new admin", ${err.message}` })
         }
 
-    },
-
+    }
 }    
