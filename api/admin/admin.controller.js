@@ -1,4 +1,4 @@
-const { adminRegistrationService, adminLoginService , adminUpdateService,adminDeleteService} = require("./admin.service");
+const { adminRegistrationService, adminLoginService , adminUpdateService,adminDeleteService,getAllAdminService} = require("./admin.service");
  
 
 
@@ -44,9 +44,20 @@ function adminDeleteController(req, res) {
     })
 }
 
+function getAllAdminController(req, res) {
+    //  let body = req.body; 
+
+    getAllAdminService(req, (results, status) => {
+
+        return res.status(status).json(results);
+
+    })
+}
+
 module.exports = {
     adminLoginController,
     adminRegisterController,
     adminUpdateController,
-    adminDeleteController
+    adminDeleteController,
+    getAllAdminController
 }

@@ -1,11 +1,15 @@
 const express = require("express")
-const { adminLoginController, adminRegisterController,adminUpdateController,adminDeleteController}= require("./admin.controller")
+const { adminLoginController, adminRegisterController,adminUpdateController,adminDeleteController, getAllAdminController}= require("./admin.controller")
 const router = express.Router()
 
 
-
+ 
 //ADMIN LOGIN
 router.post("/login", adminLoginController)
+
+//ADMIN GET
+router.get("/getAdmin", getAllAdminController)
+
 
 //ADMIN ADD
 router.post("/register", adminRegisterController)  

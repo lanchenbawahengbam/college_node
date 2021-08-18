@@ -1,10 +1,12 @@
 const express = require("express");
-const { getAllDeptController } = require("./department.controller");
+const { departmentRegisterController } = require("./department.controller");
 const router = express.Router()
 
 
+// DEPARTMENT REGISTRATION 
+router.post("/add",departmentRegisterController)
 
 //ADMIN LOGIN
-router.get("/", getAllDeptController)
+// router.get("/", getAllDeptController)
 
 module.exports = router;

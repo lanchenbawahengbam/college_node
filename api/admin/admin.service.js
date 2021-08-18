@@ -7,7 +7,7 @@ const { INTERNAL_SERVER } = require('../../helper/status');
 //ADMIN LOGIN
 async function adminLoginService(req, callback) {
     // const { errors, isValid } = validateAdminLoginInput(req.body);
-    // if (!isValid) {
+    // if (!isValid) {  
     //     callback({
     //         errors
     //     }, STATUS.BAD_REQ) 
@@ -137,13 +137,27 @@ async function adminDeleteService(req,callback){
     }else{
         console.log(adminDelete)
         callback({message:"Data is deleted" }, STATUS.SUCCESS)            
-    }
+    } 
 }
+
+async function getAllAdminService(req, callback) {
+
+    const getAdmin = await Admin.find({})
+    if(!getAdmin){
+        callback({message:"Data is not received"},STATUS.BAD_REQ)
+    }else{
+        console.log(getAdmin)
+        callback({
+            result: getAdmin
+        }, STATUS.SUCCESS)
+    }
+}    
 
 
 module.exports = {
     adminLoginService,
     adminRegistrationService,
     adminUpdateService,
-    adminDeleteService
+    adminDeleteService,
+    getAllAdminService
 }
