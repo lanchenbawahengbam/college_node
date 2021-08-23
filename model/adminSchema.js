@@ -15,12 +15,6 @@ const adminSchema = new Schema({
     password: {
         type: String
     },
-    registrationNumber: {
-        type: String
-    },
-    department: {
-        type: String
-    },
     dob: {
         type: String
     },
@@ -28,7 +22,7 @@ const adminSchema = new Schema({
         type: String
     },
     contactNumber: {
-        type: String
+        type: Number
     }
 
 })

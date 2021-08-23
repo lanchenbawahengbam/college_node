@@ -30,8 +30,7 @@ async function adminRegistrationService(req, callback) {
     //         errors
     //     }, STATUS.BAD_REQ)
     // }
-    const { name, email,
-        dob, department, contactNumber, password } = req;
+    const { name, email, dob,contactNumber, password } = req;
 
     const admin = await Admin.findOne({ email })
     if (admin) {
@@ -40,56 +39,54 @@ async function adminRegistrationService(req, callback) {
             errors
         }, STATUS.BAD_REQ)
     }
-    let departmentHelper;
-    if (department === "Civil") {
-        departmentHelper = "1"
-    }
-    else if (department === "C.S.E") {
-        departmentHelper = "2"
-    }
-    else if (department === "E.C.E") {
-        departmentHelper = "3"
-    }
-    else if (department === "E.E.E") {
-        departmentHelper = "4"
-    }
-    else if (department === "Bsic Science And Humanities") {
-        departmentHelper = "05"
+    // let departmentHelper;
+    // if (department === "Civil") {
+    //     departmentHelper = "1"
+    // }
+    // else if (department === "C.S.E") {
+    //     departmentHelper = "2"
+    // }
+    // else if (department === "E.C.E") {
+    //     departmentHelper = "3"
+    // }
+    // else if (department === "E.E.E") {
+    //     departmentHelper = "4"
+    // }
+    // else if (department === "Bsic Science And Humanities") {
+    //     departmentHelper = "05"
 
-    }
-    else {
-        departmentHelper = "00"
-    }
-    const admins = await Admin.find({ department })
-    let helper;
-    if (admins.length < 10) {
-        helper = "00" + admins.length.toString()
-    }
-    else if (students.length < 100 && students.length > 9) {
-        helper = "0" + admins.length.toString()
-    }
-    else {
-        helper = admins.length.toString()
-    }
+    // }
+    // else {
+    //     departmentHelper = "00"
+    // }
+    // const admins = await Admin.find({ department })
+    // let helper;
+    // if (admins.length < 10) {
+    //     helper = "00" + admins.length.toString()
+    // }
+    // else if (students.length < 100 && students.length > 9) {
+    //     helper = "0" + admins.length.toString()
+    // }
+    // else {
+    //     helper = admins.length.toString()
+    // }
 
 
     var date = new Date();
     const joiningYear = date.getFullYear()
-    var components = [
-        "ADM",
-        date.getFullYear(),
-        departmentHelper,
-        helper
-    ];
+    // var components = [
+    //     "ADM",
+    //     date.getFullYear(),
+    //     departmentHelper,
+    //     helper
+    // ];
 
-    var registrationNumber = components.join("");
+    // var registrationNumber = components.join("");
     const newAdmin = await new Admin({
         name,
         email,
         password: password,
         joiningYear,
-        registrationNumber,
-        department,
         contactNumber,
         dob,
     })
@@ -139,6 +136,8 @@ async function adminDeleteService(req,callback){
         callback({message:"Data is deleted" }, STATUS.SUCCESS)            
     } 
 }
+
+// GET ALL ADMIN 
 
 async function getAllAdminService(req, callback) {
 

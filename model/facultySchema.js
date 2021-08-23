@@ -6,19 +6,13 @@ const facultySchema = new Schema({
     name: {
         type: String,
         required: true
-    },
+    }, 
     email: {
         type: String,
         required: true,
         unique:true
     },
-    avatar: {
-        type: String
-    },
     password: {
-        type: String,
-    },
-    registrationNumber: {
         type: String,
     },
     gender: {
@@ -28,30 +22,17 @@ const facultySchema = new Schema({
         type: String,
         required: true
     },
-    department: {
+    departmentcode: {
         type: String, 
         required: true
     },
     facultyMobileNumber: {
         type: Number
     },
-    aadharCard: {
-        type: Number
-    },
-    dob: {
-        type: String,
-        required: true
-    },
-    joiningYear: {
-        type: Number,
-        required: true 
-    },
-    subjectsCanTeach: [{
-        type: String
-    }],
-    otp: {
-        type: String
-    }
+    qualification:{
+        type:String,
+        required:true
+    }  
 })
 
 

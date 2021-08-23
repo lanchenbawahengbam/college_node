@@ -12,10 +12,6 @@ const studentSchema = new Schema({
         required: true,
         unique: true
     },
-    avatar: {
-        type: String
-    },
-
     password: {
         type: String,
         required: true,
@@ -24,17 +20,8 @@ const studentSchema = new Schema({
         type: Number,
         required: true
     },
-    subjects: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'subject'
-        }
-    ],
     fatherName: {
         type: String
-    },
-    aadharCard: {
-        type: Number
     },
     gender: {
         type: String
@@ -42,11 +29,7 @@ const studentSchema = new Schema({
     registrationNumber: {
         type: String
     },
-    department: {
-        type: String,
-        required: true
-    },
-    section: {
+    departmentcode: {
         type: String,
         required: true
     },
@@ -62,14 +45,7 @@ const studentSchema = new Schema({
     },
     fatherMobileNumber: {
         type: Number
-    },
-    fatherName: {
-        type: String
-    },
-    otp: {
-       type:String
-    }
-
+    } 
 
 })
 

@@ -5,6 +5,8 @@ const cors = require("cors");
 //ROUTES
 const adminRouter = require("./api/admin/admin.router")
 const departmentRouter = require("./api/department/department.router")
+const facultyRouter = require("./api/faculty/faculty.router")
+const studentRouter = require("./api/student/student.router")
 
 dotenv.config({ path: './.env' });
 require('./db/conn');
@@ -19,6 +21,8 @@ server.use(cors({ allowedHeaders: "*", origin: "*" }));
 //ROUTES
 server.use("/admin", adminRouter)
 server.use("/department", departmentRouter)
+server.use("/faculty",facultyRouter)
+server.use("/student",studentRouter)
 
 
 const PORT = process.env.PORT || 3000;

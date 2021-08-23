@@ -1,27 +1,23 @@
-const Subject = require("../../model/subjectSchema");
+const Department = require("../../model/departmentSchema")
 const STATUS = require("../../helper/status");
 const { INTERNAL_SERVER } = require('../../helper/status');
 
 
 async function departmentRegistrationService(req, callback) {
-    const { totalLectures, department, subjectCode,
-        subjectName, year } = req;
-    const departmentname = await Subject.findOne({ department })
-    if (departmentname) {
-        errors.department = "Given department is already added"
-        callback({
+    const { departmentname,departmentcode } = req;
+    const department = await Department.findOne({ departmentname })
+    if (department) {
+        errors.departmentname = "Given department is already added"
+        callback({  
             errors
         },STATUS.BAD_REQ)
         // return res.status(400).json(errors)
     }
-    const newSubject = await new Subject({
-        totalLectures,
-        department,
-        subjectCode,
-        subjectName,
-        year
+    const newDepartment = await new Department({
+        departmentname,
+        departmentcode
     })
-    newSubject.save()
+    newDepartment.save()
         .then((result) => {
             console.log("CREATED : ", result)
 
@@ -32,7 +28,7 @@ async function departmentRegistrationService(req, callback) {
         })
         .catch((error) => {
             console.log("ERROR : ", error)
-            const errors = { message: `error in adding new subject", ${err.message}` }
+            const errors = { message: `error in adding new department", ${err.message}` }
 
             callback({
                 result: errors
@@ -42,6 +38,20 @@ async function departmentRegistrationService(req, callback) {
          
 
 }
+
+// GET ALL DEPARTMENT
+async function getAllDepartmentService(req, callback) {
+
+    const getDepartment = await Department.find({})
+    if(!getDepartment){
+        callback({message:"Data is not received"},STATUS.BAD_REQ)
+    }else{
+        console.log(getDepartment)
+        callback({
+            result: getDepartment
+        }, STATUS.SUCCESS)
+    }
+}    
 
 
 // function getAllDeptService(req, callback) {
@@ -56,7 +66,7 @@ async function departmentRegistrationService(req, callback) {
 //             name: "Computer Science and Engineering",
 //             value: "cse"
 //         },
-//         {
+//         {d
 //             name: "Electronics and Communication Engineering",
 //             value: "ece"
 //         },
@@ -79,6 +89,6 @@ async function departmentRegistrationService(req, callback) {
 // }
 
 module.exports = {
-    departmentRegistrationService 
-    // getAllDeptService
+    departmentRegistrationService,
+    getAllDepartmentService
 }
