@@ -1,5 +1,5 @@
 const express = require("express")
-const { adminLoginController, adminRegisterController,adminUpdateController,adminDeleteController, getAllAdminController}= require("./admin.controller")
+const { adminLoginController, adminRegisterController,adminUpdateController,adminDeleteController, getAllAdminController, getSingleAdminController}= require("./admin.controller")
 const router = express.Router()
 
 
@@ -19,6 +19,11 @@ router.patch("/update/:id", adminUpdateController)
 
 // ADMIN DELETE
 router.delete("/delete/:id", adminDeleteController)  
+
+// GET SINGLE ADMIN 
+router.get("/getSingleAdmin/:id", getSingleAdminController)  
+
+
 
 
 

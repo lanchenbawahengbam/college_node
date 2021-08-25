@@ -7,6 +7,7 @@ const adminRouter = require("./api/admin/admin.router")
 const departmentRouter = require("./api/department/department.router")
 const facultyRouter = require("./api/faculty/faculty.router")
 const studentRouter = require("./api/student/student.router")
+const admissionRouter = require("./api/admission/adm.router")
 
 dotenv.config({ path: './.env' });
 require('./db/conn');
@@ -23,6 +24,7 @@ server.use("/admin", adminRouter)
 server.use("/department", departmentRouter)
 server.use("/faculty",facultyRouter)
 server.use("/student",studentRouter)
+server.use("/admission",admissionRouter)
 
 
 const PORT = process.env.PORT || 3000;

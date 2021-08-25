@@ -150,7 +150,25 @@ async function getAllAdminService(req, callback) {
             result: getAdmin
         }, STATUS.SUCCESS)
     }
-}    
+} 
+
+// GET A PARTICULAR ADMIN 
+
+async function getSingleAdminService(req,callback){
+    const _id = req.params.id;
+    const singleAdmin = await Admin.findById(_id);
+    if(!singleAdmin){
+        callback({message:"Error in showing single data"},INTERNAL_SERVER )
+    }else{
+        console.log(singleAdmin)
+        callback({
+            result: singleAdmin
+        }, STATUS.SUCCESS)
+    }
+        
+}
+
+
 
 
 module.exports = {
@@ -158,5 +176,6 @@ module.exports = {
     adminRegistrationService,
     adminUpdateService,
     adminDeleteService,
-    getAllAdminService
+    getAllAdminService,
+    getSingleAdminService
 }

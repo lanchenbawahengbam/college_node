@@ -44,7 +44,7 @@ async function facultyRegistrationService(req, callback) {
 
 }
 
-
+// GET ALL FACULTY 
 async function getAllFacultyService(req, callback) {
 
     Faculty.aggregate([{
