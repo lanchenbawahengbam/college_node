@@ -38,7 +38,7 @@ async function departmentRegistrationService(req, callback) {
          
 
 }
-
+ 
 // GET ALL DEPARTMENT
 async function getAllDepartmentService(req, callback) {
 
@@ -52,6 +52,17 @@ async function getAllDepartmentService(req, callback) {
         }, STATUS.SUCCESS)
     }
 }    
+
+// DELETE A DEPARTMENT 
+async function departmentDeleteService(req,callback){
+    const departmentDelete = await Department.findByIdAndDelete(req.params.id);
+    if(!departmentDelete){
+        callback({message:"Error in data deletion"},INTERNAL_SERVER )
+    }else{
+        console.log(departmentDelete)
+        callback({departmentDelete }, STATUS.SUCCESS)            
+    } 
+}
 
 
 // function getAllDeptService(req, callback) {
@@ -90,5 +101,6 @@ async function getAllDepartmentService(req, callback) {
 
 module.exports = {
     departmentRegistrationService,
-    getAllDepartmentService
+    getAllDepartmentService,
+    departmentDeleteService
 }

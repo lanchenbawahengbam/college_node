@@ -1,4 +1,4 @@
-const {departmentRegistrationService,getAllDepartmentService} = require("./department.service")
+const {departmentRegistrationService,getAllDepartmentService,departmentDeleteService} = require("./department.service")
 
 
 function departmentRegisterController(req, res) {
@@ -20,6 +20,16 @@ function getAllDepartmentController(req, res) {
    })
 }
 
+function departmentDeleteController(req, res) {
+    //  let body = req.body; 
+
+    departmentDeleteService(req, (results, status) => {
+
+        return res.status(status).json(results);
+
+    })
+}
+
 
 // function getAllDeptController(req, res) {
 //     let body = req.body;
@@ -33,5 +43,6 @@ function getAllDepartmentController(req, res) {
 
 module.exports = {
     departmentRegisterController,
-    getAllDepartmentController
+    getAllDepartmentController,
+    departmentDeleteController
 }

@@ -48,8 +48,53 @@ async function studentRegistrationService(req, callback) {
 
 }
 
+async function getAllStudentService(req, callback) {
+
+    Student.aggregate([{
+        $lookup:{ 
+            from:'departments',
+            localField:'departmentcode',
+            foreignField:'departmentcode',
+            as:'std_dept_output'
+        }
+    }]).then((result) => {
+        console.log("STUDENT DATA : ", result)
+
+        callback({
+            result: result
+        }, STATUS.SUCCESS)
+
+    })
+    .catch((error) => {
+        console.log("ERROR : ", error)
+        const errors = { message: `error in showing the student data", ${err.message}` }
+
+        callback({
+            result: errors
+        }, STATUS.INTERNAL_SERVER)
+    })
+    
+
+}
+
+async function getDepartmentStudentService(req, callback) {
+    
+    const { departmentcode, year} = req;
+    const getDepartmentStudent = await Student.find({ departmentcode,year})
+    if(!getDepartmentStudent){
+        callback({message:"Data is not received"},STATUS.BAD_REQ)
+    }else{
+        console.log(getDepartmentStudent)
+        callback({
+            result: getDepartmentStudent
+        }, STATUS.SUCCESS)
+    }
+}
+
 module.exports = {
-    studentRegistrationService
+    studentRegistrationService,
+    getAllStudentService,
+    getDepartmentStudentService
 
 }
 

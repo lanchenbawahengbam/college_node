@@ -1,12 +1,14 @@
-
+require("dotenv").config();
 const Admin = require('../../model/adminSchema');
 const STATUS = require("../../helper/status");
 const validateAdminLoginInput = require("../../validation/adminlogin");
 const { INTERNAL_SERVER } = require('../../helper/status');
+const jwt = require('jsonwebtoken')
+
 
 //ADMIN LOGIN
 async function adminLoginService(req, callback) {
-    // const { errors, isValid } = validateAdminLoginInput(req.body);
+    // const { errors, isValid } = validateAdminLoginInput(req.body;
     // if (!isValid) {  
     //     callback({
     //         errors
@@ -17,9 +19,14 @@ async function adminLoginService(req, callback) {
     const admin = await Admin.findOne({ email,password })
     if (!admin) {
         callback({message:"Invalid Cridentials"},STATUS.BAD_REQ)
-    }else{
-        callback({message:"User Login Successfull"},STATUS.SUCCESS)
-    }
+    }else{ 
+        const accessToken = jwt.sign(
+            {admin},
+            process.env.SECRET__TOKEN,
+          );
+          callback({ accessToken : accessToken},STATUS.SUCCESS);
+        }
+        // callback({message:"User Login Successfull"},STATUS.SUCCESS
 }
 
 // ADMIN REGISTRATION 

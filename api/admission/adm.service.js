@@ -60,7 +60,7 @@ async function getAdmittedStudentService(req, callback) {
         console.log("ADMITTED STUDENT DATA : ", result)
 
         callback({
-            result: result
+            result: result  
         }, STATUS.SUCCESS)
 
     })
