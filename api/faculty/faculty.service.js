@@ -5,7 +5,7 @@ const { INTERNAL_SERVER } = require("../../helper/status");
 const jwt = require("jsonwebtoken");
 
 //FACULTY LOGIN
-async function facultyLoginService(req, callback) {
+async function facultyLoginService (req, callback) { 
   // const { errors, isValid } = validateAdminLoginInput(req.body;
   // if (!isValid) {
   //     callback({
@@ -14,12 +14,13 @@ async function facultyLoginService(req, callback) {
   // }
   const { email, password } = req.body;
 
-  const faculty = await Faculty.findOne({ email, password });
+  const faculty = await Faculty.findOne({ email,password});
+  console.log(faculty)
   if (!faculty) {
     callback({ message: "Invalid Cridentials" }, STATUS.BAD_REQ);
   } else {
     const accessToken = jwt.sign(
-      { email, password },
+      {faculty },
       process.env.SECRET__TOKEN,{expiresIn: '30s'}
     );
     callback({ accessToken: accessToken }, STATUS.SUCCESS);
@@ -29,7 +30,7 @@ async function facultyLoginService(req, callback) {
 
 async function facultyRegistrationService(req, callback) {
   const {
-    name,
+    name, 
     email,
     designation,
     password,
@@ -127,7 +128,7 @@ async function getAllFacultyService(req, callback) {
 
 // FACULTY UPDATE
 async function facultyUpdateService(req, decoded, callback) {
-  const { email, gender, facultyMobileNumber, aadharCard } = req.body;
+  // const { email, gender, facultyMobileNumber, aadharCard } = req.body;
   // const faculty = await Faculty.findOne({ email });
   // if (gender) {
   //   faculty.gender = gender;
@@ -150,9 +151,9 @@ async function facultyUpdateService(req, decoded, callback) {
   //   callback({ message: "Cannot update others Profile" }, INTERNAL_SERVER);
   // } else {
     const _id = req.params.id;
-    console.log(decoded)
+    console.log(_id)
   // const { email, password } = decoded;
-  if(decoded.email !== req.body.email){
+  if(decoded.faculty._id !== _id){
   callback({ message: "Cannot update others Profile" }, INTERNAL_SERVER);
   }else{
      
